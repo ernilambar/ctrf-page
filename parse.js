@@ -33,7 +33,7 @@ tests.forEach((test) => {
 
   body += `
   <div>
-    <h3>## ${esc((test.name || '').replace(/^[\w-]+(?:\.[\w-]+)*\.(?=[\w-]+ at )/, ''))}</h3>
+    <h3>## ${esc((test.name || '').replace(/^[\w-]+(?:\.[\w-]+)*\.(?=[\w-]+ at )/, '').replace(/^([\w-]+)( at .+)?$/, (_, slug, loc) => slug.replace(/[_-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) + (loc || '')))}</h3>
     <p><strong>Severity:</strong> ${esc(risk.severity || extra.severity || 'High')} (Score: ${risk.score || 'N/A'})</p>
 
     <p><strong>Summary</strong><br />${fmt(test.message)}</p>
