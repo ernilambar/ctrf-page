@@ -4,15 +4,18 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const inputPath = process.argv[2];
+const inputArg = process.argv[2];
 const authorArg = process.argv[3];
 
-if (!inputPath) {
-  console.error('Usage: node parse.js <path-to-ctrf.json> [author]');
+if (!inputArg) {
+  console.error('Usage: node parse.js <ctrf-file> [author]');
+  console.error('  <ctrf-file> may be given with or without the .json extension');
   process.exit(1);
 }
 
-const resolvedInput = path.resolve(inputPath);
+// Allow the user to pass either "ctrf-51" or "ctrf-51.json".
+const withExt = /\.json$/i.test(inputArg) ? inputArg : `${inputArg}.json`;
+const resolvedInput = path.resolve(withExt);
 
 if (!fs.existsSync(resolvedInput)) {
   console.error(`File not found: ${resolvedInput}`);
