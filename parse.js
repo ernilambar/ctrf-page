@@ -93,7 +93,7 @@ const pluginLabel = [pluginSlug, pluginVersion].filter(Boolean).join(' ');
 
 const intro =
   `<p ${P}>Hello,</p>` +
-  `<p ${P}>This is an <strong>automated security review</strong> of your latest plugin submission. This review is informational only and is <strong>not</strong> used to approve or reject your plugin — a Plugin Review Team member will perform the actual review separately.</p>` +
+  `<p ${P}>This is an <strong>automated security review</strong> of your latest plugin update.</p><p ${P}></p>` +
   `<p ${P}>Our automated security scan identified issues in the updated files that we want to bring to your attention. The items listed below may represent serious security vulnerabilities that could expose your users to potential attacks, data exposure, or unauthorized access, and we strongly recommend resolving them prior to publication in the WordPress Plugin Directory.</p>` +
   `<p ${P}>Please review each issue carefully and address them in your next submission.</p>` +
   `<p ${P}><strong>Please do not reply to this email.</strong> This message is sent automatically and replies are not monitored. If you need to discuss the review, wait for the human reviewer's follow-up or contact the Plugin Review Team through the usual channels.</p>` +
