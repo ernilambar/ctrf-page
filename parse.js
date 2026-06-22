@@ -44,13 +44,12 @@ const fmtReviewIdDate = (iso) => {
   return `${dd}${mon}${yy}`;
 };
 
-const reviewIdParts = [
-  author,
-  pluginSlug || 'unknown',
-  fmtReviewIdDate(scanTimestamp) || 'unknown',
-  pluginVersion || 'unknown',
-];
-const reviewId = `S ${reviewIdParts.join('/')}`;
+const reportTimestamp = data.timestamp || data.results?.extra?.scanArtifact?.scanTimestamp || '';
+
+const reviewId = [
+  'GANDALFRW',
+  (pluginSlug || 'unknown') + '/' + (author || 'unknown') + '/' + (fmtReviewIdDate(scanTimestamp) || 'unknown') + '/TX ' + (fmtReviewIdDate(reportTimestamp) || 'unknown') + '/' + (pluginVersion || 'unknown'),
+].join(' ');
 
 const esc = (t) => t ? String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
 
