@@ -14,8 +14,15 @@ if (!inputArg) {
 }
 
 // Allow the user to pass either "ctrf-51" or "ctrf-51.json".
+// If the path has no directory component, look in the reports/ subfolder first.
 const withExt = /\.json$/i.test(inputArg) ? inputArg : `${inputArg}.json`;
-const resolvedInput = path.resolve(withExt);
+const hasDir = withExt.includes('/') || withExt.includes('\\');
+const resolvedInput = hasDir
+  ? path.resolve(withExt)
+  : (() => {
+      const inReports = path.resolve(path.join(__dirname, 'reports', withExt));
+      return require('fs').existsSync(inReports) ? inReports : path.resolve(withExt);
+    })();
 
 if (!fs.existsSync(resolvedInput)) {
   console.error(`File not found: ${resolvedInput}`);
