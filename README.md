@@ -41,3 +41,28 @@ node make-report-png.js
 Reads all `ctrf-*.json` files from `reports/`, generates a styled dark-theme HTML page at `/tmp/gandalf-report.html`, and exports it as a full-page PNG to `reports/gandalf-report.png`.
 
 Requires Google Chrome installed at `/Applications/Google Chrome.app`.
+
+---
+
+### Check Slack log for new Gandalf findings to review
+
+```bash
+node check-slack.js [path/to/logslack.log]
+```
+
+Parses a Slack log file (`logslack.log`) containing `Gandalf scan detected findings` entries and:
+
+1. Ignores plugins with **< 100 active installs**.
+2. De-duplicates by slug + version (keeps last occurrence).
+3. Checks whether each slug already has a CTRF JSON in `reports/`.
+4. Prints a summary: already reviewed ✓ vs pending ✗.
+5. **Opens** the Details and Report URLs for all pending plugins in the browser.
+
+**Default log path:** `reports/logslack.log` (or pass as argument).
+
+**Example:**
+```bash
+node check-slack.js reports/logslack.log
+# or pipe from clipboard:
+pbpaste | node check-slack.js /dev/stdin
+```
